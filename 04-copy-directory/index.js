@@ -28,7 +28,6 @@ async function copyDir() {
       });
       fs.rmdir(filesCopy, err => {
         // if (err) throw err;
-
       });
     }
     fs.mkdir(filesCopy, { recursive: true }, (err) => {
