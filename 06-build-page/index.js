@@ -12,6 +12,7 @@ const projectDistStyle = path.join(__dirname, 'project-dist/style.css');
 const headerComponents = path.join(__dirname, 'components', 'header.html');
 const articlesComponents = path.join(__dirname, 'components', 'articles.html');
 const footerComponents = path.join(__dirname, 'components', 'footer.html');
+const aboutComponents = path.join(__dirname, 'components', 'about.html');
 
 //variables assets
 const assets = path.join(__dirname, '/assets/');
@@ -72,6 +73,11 @@ async function replaceTempTags() {
                 case 'footer':
                     const footer = await fsProm.readFile(footerComponents, 'utf-8');
                     template = template.replace(reg, footer);
+                    break;
+
+                case 'about':
+                    const about = await fsProm.readFile(aboutComponents, 'utf-8');
+                    template = template.replace(reg, about);
                     break;
             }
             tag = template.match(reg)

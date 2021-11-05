@@ -1,7 +1,6 @@
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 const filePath = path.join(__dirname, 'text.txt');
 
 const rl = readline.createInterface({
@@ -11,7 +10,7 @@ const rl = readline.createInterface({
 
 let writeableStream;
 
-console.log(chalk.red('What languages do you know? '));
+console.log('What languages do you know? ');
 
 rl.on('line', line => {
     if (line === 'exit' || line === 'EXIT') {
@@ -21,5 +20,5 @@ rl.on('line', line => {
     writeableStream.write(`${line} \n`);
 });
 
-process.on('exit', () => console.log(chalk.yellow('\bGood buy!')));
+process.on('exit', () => console.log('\bGood buy!'));
 process.on('SIGINT', () => exit());

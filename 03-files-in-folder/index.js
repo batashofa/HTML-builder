@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs/promises');
 
-const chalk = require('chalk');
 const filePath = path.join(__dirname, 'secret-folder');
 
 async function getFiles() {
@@ -16,12 +15,12 @@ async function getFiles() {
         });
 
         if (!stat.isDirectory()) {
-            const nameFile = chalk.blue(path.parse(itemFold).name);
-            const extenFile = chalk.green(path.parse(itemFold).ext.slice(1));
-            const weightFile = chalk.yellow.bold(stat.size/1024+'kb');
+            const nameFile = path.parse(itemFold).name;
+            const extenFile = path.parse(itemFold).ext.slice(1);
+            const weightFile = stat.size/1024+'kb';
             console.log((`${nameFile} - ${extenFile} - ${weightFile}`));
         }
     }
 }
-console.log(chalk.bgMagenta.black('Info about files from directory secret-folder:'));
+console.log('Info about files from directory secret-folder:');
 getFiles();
