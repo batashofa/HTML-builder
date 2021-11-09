@@ -13,6 +13,7 @@ const headerComponents = path.join(__dirname, 'components', 'header.html');
 const articlesComponents = path.join(__dirname, 'components', 'articles.html');
 const footerComponents = path.join(__dirname, 'components', 'footer.html');
 const aboutComponents = path.join(__dirname, 'components', 'about.html');
+const components = path.join(__dirname, 'components');
 
 //variables assets
 const assets = path.join(__dirname, '/assets/');
@@ -88,35 +89,18 @@ async function createAssets() {
 async function replaceTempTags() {
     await fs.readFile(path.join(__dirname, 'template.html'), 'utf-8', async (e, data) => {
         let template = data;
-        const reg = /{{(.*)}}/;
-        let tag = template.match(reg);
-        while (tag !== null) {
-            const tagName = tag[1]
-            switch (tagName) {
-                case 'header':
-                    const header = await fsProm.readFile(headerComponents, 'utf-8');
-                    template = template.replace(reg, header);
-                    break;
-
-                case 'articles':
-                    const articles = await fsProm.readFile(articlesComponents, 'utf-8');
-                    template = template.replace(reg, articles);
-                    break;
-
-                case 'footer':
-                    const footer = await fsProm.readFile(footerComponents, 'utf-8');
-                    template = template.replace(reg, footer);
-                    break;
-
-                case 'about':
-                    const about = await fsProm.readFile(aboutComponents, 'utf-8');
-                    template = template.replace(reg, about);
-                    break;
-            }
-            tag = template.match(reg)
-        }
-        await fs.writeFile(projectDistIndex, template, err => {
-            if (err) throw err;
+        await fs.readdir(components, (err, files)=> {
+            files.forEach((file)=> {
+                const tag = `{{${file.substring(0, file.length - 5)}}}`;
+                fs.readFile(path.join(components, file), 'utf-8', (err, data)=> {
+                    if (template.includes(tag)) {
+                        template = template.replace(tag, data);
+                        fs.writeFile(projectDistIndex, template, err => {
+                            if (err) throw err;
+                        })
+                    }
+                });
+            })
         })
     })
 }
