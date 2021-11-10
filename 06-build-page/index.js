@@ -9,10 +9,6 @@ const projectDistIndex = path.join(__dirname, 'project-dist/index.html');
 const projectDistStyle = path.join(__dirname, 'project-dist/style.css');
 
 //variables Index.html(tags)
-const headerComponents = path.join(__dirname, 'components', 'header.html');
-const articlesComponents = path.join(__dirname, 'components', 'articles.html');
-const footerComponents = path.join(__dirname, 'components', 'footer.html');
-const aboutComponents = path.join(__dirname, 'components', 'about.html');
 const components = path.join(__dirname, 'components');
 
 //variables assets
@@ -113,7 +109,7 @@ async function creatStyleCss() {
                     if (err) {
                         process.exit();
                     }
-                    fs.appendFile(projectDistStyle, data, (err) => {
+                    fs.appendFile(projectDistStyle, `${data} \n`, (err) => {
                         if (err) throw err;
                     });
                 });
